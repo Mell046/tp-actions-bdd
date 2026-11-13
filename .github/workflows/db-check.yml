@@ -1,0 +1,18 @@
+name: TP3 DB ACTION
+
+on:
+  push:
+
+jobs:
+  db:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: recuperer le contenu
+        uses: actions/checkout@v4
+
+      - name: Preparer la base de donnees
+        run: bash db/setup.sh
+
+      - name: Afficher les etudiants
+        run: PGPASSWORD=postgres psql -h localhost -U postgres -d tp -c "SELECT * FROM students;"
